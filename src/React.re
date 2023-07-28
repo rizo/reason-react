@@ -341,7 +341,7 @@ external useMemo7:
   ([@bs.uncurry] (unit => 'any), ('a, 'b, 'c, 'd, 'e, 'f, 'g)) => 'any =
   "useMemo";
 
-/* This is used as return values  */
+/* This is used as return values */
 type callback('input, 'output) = 'input => 'output;
 
 [@bs.module "react"]
