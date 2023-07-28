@@ -217,10 +217,13 @@ external useReducerWithMapState:
   "useReducer";
 
 [@bs.module "react"]
-external useSyncExternalStore: (
-  ~subscribe: [@bs.uncurry] (unit => unit),
-  ~getSnapshot: [@bs.uncurry] (unit => 'snapshot),
-  ~getServerSnapshot: [@bs.uncurry] unit => 'snapshot=?) => unit =
+external useSyncExternalStore:
+  (
+    ~subscribe: [@bs.uncurry] (unit => unit),
+    ~getSnapshot: [@bs.uncurry] (unit => 'snapshot),
+    ~getServerSnapshot: [@bs.uncurry] (unit => 'snapshot)=?
+  ) =>
+  unit =
   "useSyncExternalStore";
 
 [@bs.module "react"]
@@ -539,9 +542,7 @@ module Uncurried = {
 };
 
 [@bs.module "react"]
-external useTransition:
-  (unit) =>
-  (bool, callback(callback(unit, unit), unit)) =
+external useTransition: unit => (bool, callback(callback(unit, unit), unit)) =
   "useTransition";
 
 [@bs.set]
@@ -551,4 +552,5 @@ external setDisplayName: (component('props), string) => unit = "displayName";
 external displayName: component('props) => option(string) = "displayName";
 
 [@bs.module "react"]
-external useDebugValue: (~format: 'value => string, 'value) => unit = "useDebugValue";
+external useDebugValue: (~format: 'value => string, 'value) => unit =
+  "useDebugValue";
