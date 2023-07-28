@@ -241,6 +241,49 @@ external useEffect7:
   "useEffect";
 
 [@bs.module "react"]
+external useInsertionEffect: ([@bs.uncurry] (unit => option(unit => unit))) => unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect0:
+  ([@bs.uncurry] (unit => option(unit => unit)), [@bs.as {json|[]|json}] _) =>
+  unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect1:
+  ([@bs.uncurry] (unit => option(unit => unit)), array('a)) => unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect2:
+  ([@bs.uncurry] (unit => option(unit => unit)), ('a, 'b)) => unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect3:
+  ([@bs.uncurry] (unit => option(unit => unit)), ('a, 'b, 'c)) => unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect4:
+  ([@bs.uncurry] (unit => option(unit => unit)), ('a, 'b, 'c, 'd)) => unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect5:
+  ([@bs.uncurry] (unit => option(unit => unit)), ('a, 'b, 'c, 'd, 'e)) =>
+  unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect6:
+  ([@bs.uncurry] (unit => option(unit => unit)), ('a, 'b, 'c, 'd, 'e, 'f)) =>
+  unit =
+  "useInsertionEffect";
+[@bs.module "react"]
+external useInsertionEffect7:
+  (
+    [@bs.uncurry] (unit => option(unit => unit)),
+    ('a, 'b, 'c, 'd, 'e, 'f, 'g)
+  ) =>
+  unit =
+  "useInsertionEffect";
+
+[@bs.module "react"]
 external useLayoutEffect:
   ([@bs.uncurry] (unit => option(unit => unit))) => unit =
   "useLayoutEffect";
