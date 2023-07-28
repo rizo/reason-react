@@ -10,20 +10,24 @@
 external querySelector: string => option(Dom.element) =
   "document.querySelector";
 
-[@bs.module "react-dom"]
-external render: (React.element, Dom.element) => unit = "render";
-
-module Experimental = {
+module Client = {
   type root;
 
-  [@bs.module "react-dom"]
+  [@bs.send] external render: (root, React.element) => unit = "render";
+
+  [@bs.send] external unmount: (root, unit) => unit = "unmount";
+
+  [@bs.module "react-dom/client"]
   external createRoot: Dom.element => root = "createRoot";
 
-  [@bs.module "react-dom"]
-  external createBlockingRoot: Dom.element => root = "createBlockingRoot";
-
-  [@bs.send] external render: (root, React.element) => unit = "render";
+  [@bs.module "react-dom/client"]
+  external hydrateRoot: (Dom.element, React.element) => root = "hydrateRoot";
 };
+
+module Server = ReactDOMServer;
+
+[@bs.module "react-dom"]
+external render: (React.element, Dom.element) => unit = "render";
 
 [@bs.module "react-dom"]
 external hydrate: (React.element, Dom.element) => unit = "hydrate";
@@ -35,6 +39,9 @@ external createPortal: (React.element, Dom.element) => React.element =
 [@bs.module "react-dom"]
 external unmountComponentAtNode: Dom.element => unit =
   "unmountComponentAtNode";
+
+[@bs.module "react-dom"]
+external flushSync: (unit => unit) => unit = "flushSync";
 
 external domElementToObj: Dom.element => Js.t({..}) = "%identity";
 

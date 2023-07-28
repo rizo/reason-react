@@ -217,6 +217,13 @@ external useReducerWithMapState:
   "useReducer";
 
 [@bs.module "react"]
+external useSyncExternalStore: (
+  ~subscribe: [@bs.uncurry] (unit => unit),
+  ~getSnapshot: [@bs.uncurry] (unit => 'snapshot),
+  ~getServerSnapshot: [@bs.uncurry] unit => 'snapshot=?) => unit =
+  "useSyncExternalStore";
+
+[@bs.module "react"]
 external useEffect: ([@bs.uncurry] (unit => option(unit => unit))) => unit =
   "useEffect";
 [@bs.module "react"]
@@ -384,6 +391,9 @@ external useCallback7:
 external useContext: Context.t('any) => 'any = "useContext";
 
 [@bs.module "react"] external useRef: 'value => ref('value) = "useRef";
+[@bs.module "react"] external useId: unit => string = "useId";
+
+[@bs.module "react"] external useDeferredValue: 'a => 'a = "useDeferredValue";
 
 [@bs.module "react"]
 external useImperativeHandle0:
@@ -528,12 +538,10 @@ module Uncurried = {
     "useCallback";
 };
 
-type transitionConfig = {timeoutMs: int};
-
 [@bs.module "react"]
 external useTransition:
-  (~config: transitionConfig=?, unit) =>
-  (callback(callback(unit, unit), unit), bool) =
+  (unit) =>
+  (bool, callback(callback(unit, unit), unit)) =
   "useTransition";
 
 [@bs.set]
@@ -541,3 +549,6 @@ external setDisplayName: (component('props), string) => unit = "displayName";
 
 [@bs.get] [@bs.return nullable]
 external displayName: component('props) => option(string) = "displayName";
+
+[@bs.module "react"]
+external useDebugValue: (~format: 'value => string, 'value) => unit = "useDebugValue";
