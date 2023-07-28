@@ -158,35 +158,6 @@ module Suspense = {
     "Suspense";
 };
 
-/* Experimental React.SuspenseList */
-module SuspenseList = {
-  type revealOrder;
-  type tail;
-  [@bs.obj]
-  external makeProps:
-    (
-      ~children: element=?,
-      ~revealOrder: [ | `forwards | `backwards | `together]=?,
-      ~tail: [ | `collapsed | `hidden]=?,
-      unit
-    ) =>
-    {
-      .
-      "children": option(element),
-      "revealOrder": option(revealOrder),
-      "tail": option(tail),
-    };
-
-  [@bs.module "react"]
-  external make:
-    component({
-      .
-      "children": option(element),
-      "revealOrder": option(revealOrder),
-      "tail": option(tail),
-    }) =
-    "SuspenseList";
-};
 /* HOOKS */
 
 /*
