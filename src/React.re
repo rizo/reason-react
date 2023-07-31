@@ -241,7 +241,8 @@ external useEffect7:
   "useEffect";
 
 [@bs.module "react"]
-external useInsertionEffect: ([@bs.uncurry] (unit => option(unit => unit))) => unit =
+external useInsertionEffect:
+  ([@bs.uncurry] (unit => option(unit => unit))) => unit =
   "useInsertionEffect";
 [@bs.module "react"]
 external useInsertionEffect0:
@@ -569,5 +570,5 @@ external displayName: component('props) => option(string) = "displayName";
 external useDebugValue: ('value, ~format: 'value => string=?, unit) => unit =
   "useDebugValue";
 
-let useDebugValue = (value, ~format=(a => a)) =>
+let useDebugValue = (value, ~format=a => a) =>
   useDebugValue(value, ~format, ());
