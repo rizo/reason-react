@@ -194,7 +194,7 @@ external useSyncExternalStore:
     ~getSnapshot: [@bs.uncurry] (unit => 'snapshot),
     ~getServerSnapshot: [@bs.uncurry] (unit => 'snapshot)=?
   ) =>
-  unit =
+  'snapshot =
   "useSyncExternalStore";
 
 [@bs.module "react"]
