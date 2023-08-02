@@ -569,6 +569,3 @@ external displayName: component('props) => option(string) = "displayName";
 [@bs.module "react"]
 external useDebugValue: ('value, ~format: 'value => string=?, unit) => unit =
   "useDebugValue";
-
-let useDebugValue = (value, ~format=a => a) =>
-  useDebugValue(value, ~format, ());
