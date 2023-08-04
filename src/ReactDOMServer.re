@@ -10,62 +10,68 @@ type error = {.};
 [@deriving abstract]
 type options = {
   [@bs.optional]
-  bootstrapScriptContent: option(string),
+  bootstrapScriptContent: string,
   [@bs.optional]
-  bootstrapScripts: option(array(string)),
+  bootstrapScripts: array(string),
   [@bs.optional]
-  bootstrapModules: option(array(string)),
+  bootstrapModules: array(string),
   [@bs.optional]
-  identifierPrefix: option(string),
+  identifierPrefix: string,
   [@bs.optional]
-  namespaceURI: option(string),
+  namespaceURI: string,
   [@bs.optional]
-  nonce: option(string),
+  nonce: string,
   [@bs.optional]
-  onAllReady: option(unit => unit),
+  onAllReady: unit => unit,
   [@bs.optional]
-  onError: option(error => unit),
+  onError: error => unit,
   [@bs.optional]
-  onShellReady: option(unit => unit),
+  onShellReady: unit => unit,
   [@bs.optional]
-  onShellError: option(error => unit),
+  onShellError: error => unit,
   [@bs.optional]
-  progressiveChunkSize: option(int),
+  progressiveChunkSize: int,
+};
+
+type pipeableStream = {
+  /* Using empty object instead of Node.stream since Melange don't provide a binding to node's Stream (https://nodejs.org/api/stream.html) */
+  pipe: {. } => unit,
+  abort: unit => unit
 };
 
 [@bs.module "react-dom/server"]
-external renderToPipeableStream: (React.element, options) => string =
+external renderToPipeableStream: (React.element, options) => pipeableStream =
   "renderToPipeableStream";
 
 let renderToPipeableStream =
     (
-      ~bootstrapScriptContent,
-      ~bootstrapScripts,
-      ~bootstrapModules,
-      ~identifierPrefix,
-      ~namespaceURI,
-      ~nonce,
-      ~onAllReady,
-      ~onError,
-      ~onShellReady,
-      ~onShellError,
-      ~progressiveChunkSize,
+      ~bootstrapScriptContent=?,
+      ~bootstrapScripts=?,
+      ~bootstrapModules=?,
+      ~identifierPrefix=?,
+      ~namespaceURI=?,
+      ~nonce=?,
+      ~onAllReady=?,
+      ~onError=?,
+      ~onShellReady=?,
+      ~onShellError=?,
+      ~progressiveChunkSize=?,
       element,
     ) =>
   renderToPipeableStream(
     element,
     options(
-      ~bootstrapScriptContent,
-      ~bootstrapScripts,
-      ~bootstrapModules,
-      ~identifierPrefix,
-      ~namespaceURI,
-      ~nonce,
-      ~onAllReady,
-      ~onError,
-      ~onShellReady,
-      ~onShellError,
-      ~progressiveChunkSize,
+      ~bootstrapScriptContent=?(bootstrapScriptContent),
+      ~bootstrapScripts=?(bootstrapScripts),
+      ~bootstrapModules=?(bootstrapModules),
+      ~identifierPrefix=?(identifierPrefix),
+      ~namespaceURI=?(namespaceURI),
+      ~nonce=?(nonce),
+      ~onAllReady=?(onAllReady),
+      ~onError=?(onError),
+      ~onShellReady=?(onShellReady),
+      ~onShellError=?(onShellError),
+      ~progressiveChunkSize=?(progressiveChunkSize),
       (),
     ),
   );
