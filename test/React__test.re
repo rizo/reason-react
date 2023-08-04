@@ -163,9 +163,9 @@ describe("React", () => {
 
   test("can render DOM elements", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> "Hello world!"->React.string </div>)
     });
 
@@ -178,9 +178,9 @@ describe("React", () => {
 
   test("can render null elements", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> React.null </div>);
     });
 
@@ -193,9 +193,9 @@ describe("React", () => {
 
   test("can render string elements", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> "Hello"->React.string </div>);
     });
 
@@ -208,9 +208,9 @@ describe("React", () => {
 
   test("can render int elements", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> 12345->React.int </div>);
     });
 
@@ -223,9 +223,9 @@ describe("React", () => {
 
   test("can render float elements", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> 12.345->React.float </div>);
     });
 
@@ -241,9 +241,9 @@ describe("React", () => {
     let array =
       [|1, 2, 3|]
       ->Array.map(item => {<div key={j|$item|j}> item->React.int </div>});
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <div> array->React.array </div>);
     });
 
@@ -268,9 +268,9 @@ describe("React", () => {
 
   test("can clone an element", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, React.cloneElement(
           <div> "Hello"->React.string </div>,
           {"data-name": "World"},
@@ -289,9 +289,9 @@ describe("React", () => {
 
   test("can render react components", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <DummyStatefulComponent />);
     });
 
@@ -325,9 +325,9 @@ describe("React", () => {
 
   test("can render react components with reducers", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <DummyReducerComponent />);
     });
 
@@ -507,9 +507,9 @@ describe("React", () => {
     let callback = reactRef => {
       myRef := Some(reactRef);
     };
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <DummyComponentWithRefAndEffect callback />);
     });
 
@@ -520,9 +520,9 @@ describe("React", () => {
 
   test("Children", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <DummyComponentThatMapsChildren>
           <div> 1->React.int </div>
           <div> 2->React.int </div>
@@ -551,9 +551,9 @@ describe("React", () => {
 
   test("Context", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root,
         <DummyContext.Provider value=10>
           <DummyContext.Consumer />
@@ -570,9 +570,9 @@ describe("React", () => {
   test("Events", () => {
     let container = getContainer(container);
     let value = ref("");
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <input name="test-input" onChange={event => {value := event->ReactEvent.Form.target##value}} />);
     });
 
@@ -587,9 +587,9 @@ describe("React", () => {
   test("React.Fragment with key", () => {
     let container = getContainer(container);
     let title = Some("foo");
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      let root = ReactDOM.Client.createRoot(container);
       ReactDOM.Client.render(root, <React.Fragment key=?title>
           <div> "Child"->React.string </div>
         </React.Fragment>);
@@ -603,22 +603,22 @@ describe("React", () => {
     ->toBe(true);
   });
 
-  /* test("ErrorBoundary", () => {
+  test("ErrorBoundary", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
 
     act(() => {
-      ReactDOM.render(
+      ReactDOM.Client.render(
+        root,
         <ReasonReactErrorBoundary
           fallback={({error: _, info}) => {
             expect(
               info.componentStack->Js.String2.includes("ComponentThatThrows"),
-            ).
-              toBe(true);
+            )->toBe(true);
             <strong> "An error occured"->React.string </strong>;
           }}>
           <ComponentThatThrows value=1 />
         </ReasonReactErrorBoundary>,
-        container,
       )
     });
 
@@ -627,5 +627,5 @@ describe("React", () => {
       ->DOM.findBySelectorAndTextContent("strong", "An error occured")
       ->Option.isSome,
     )->toBe(true);
-  }); */
+  });
 });
