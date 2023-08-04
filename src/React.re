@@ -560,6 +560,9 @@ module Uncurried = {
 external useTransition: unit => (bool, callback(callback(unit, unit), unit)) =
   "useTransition";
 
+[@bs.module "react"]
+external use: Js.Promise.t('a) => ('a) = "use";
+
 [@bs.set]
 external setDisplayName: (component('props), string) => unit = "displayName";
 
