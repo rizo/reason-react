@@ -165,7 +165,8 @@ describe("React", () => {
     let container = getContainer(container);
 
     act(() => {
-      ReactDOM.render(<div> "Hello world!"->React.string </div>, container)
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> "Hello world!"->React.string </div>)
     });
 
     expect(
@@ -178,7 +179,10 @@ describe("React", () => {
   test("can render null elements", () => {
     let container = getContainer(container);
 
-    act(() => {ReactDOM.render(<div> React.null </div>, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> React.null </div>);
+    });
 
     expect(
       container
@@ -191,7 +195,8 @@ describe("React", () => {
     let container = getContainer(container);
 
     act(() => {
-      ReactDOM.render(<div> "Hello"->React.string </div>, container)
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> "Hello"->React.string </div>);
     });
 
     expect(
@@ -204,7 +209,10 @@ describe("React", () => {
   test("can render int elements", () => {
     let container = getContainer(container);
 
-    act(() => {ReactDOM.render(<div> 12345->React.int </div>, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> 12345->React.int </div>);
+    });
 
     expect(
       container
@@ -216,7 +224,10 @@ describe("React", () => {
   test("can render float elements", () => {
     let container = getContainer(container);
 
-    act(() => {ReactDOM.render(<div> 12.345->React.float </div>, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> 12.345->React.float </div>);
+    });
 
     expect(
       container
@@ -231,7 +242,10 @@ describe("React", () => {
       [|1, 2, 3|]
       ->Array.map(item => {<div key={j|$item|j}> item->React.int </div>});
 
-    act(() => {ReactDOM.render(<div> array->React.array </div>, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <div> array->React.array </div>);
+    });
 
     expect(
       container
@@ -256,13 +270,11 @@ describe("React", () => {
     let container = getContainer(container);
 
     act(() => {
-      ReactDOM.render(
-        React.cloneElement(
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, React.cloneElement(
           <div> "Hello"->React.string </div>,
           {"data-name": "World"},
-        ),
-        container,
-      )
+        ));
     });
 
     expect(
@@ -278,7 +290,10 @@ describe("React", () => {
   test("can render react components", () => {
     let container = getContainer(container);
 
-    act(() => {ReactDOM.render(<DummyStatefulComponent />, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <DummyStatefulComponent />);
+    });
 
     expect(
       container
@@ -311,7 +326,10 @@ describe("React", () => {
   test("can render react components with reducers", () => {
     let container = getContainer(container);
 
-    act(() => {ReactDOM.render(<DummyReducerComponent />, container)});
+    act(() => {
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <DummyReducerComponent />);
+    });
 
     expect(
       container
@@ -436,25 +454,17 @@ describe("React", () => {
 
   test("can render react components with effects", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
     let callback = Mock.fn();
 
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithEffect value=0 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithEffect value=0 callback />);
     });
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithEffect value=1 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithEffect value=1 callback />);
     });
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithEffect value=1 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithEffect value=1 callback />);
     });
 
     expect(callback->Mock.getMock->Mock.calls)->toEqual([|
@@ -465,25 +475,17 @@ describe("React", () => {
 
   test("can render react components with layout effects", () => {
     let container = getContainer(container);
+    let root = ReactDOM.Client.createRoot(container);
     let callback = Mock.fn();
 
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithLayoutEffect value=0 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithLayoutEffect value=0 callback />);
     });
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithLayoutEffect value=1 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithLayoutEffect value=1 callback />);
     });
     act(() => {
-      ReactDOM.render(
-        <DummyComponentWithLayoutEffect value=1 callback />,
-        container,
-      )
+      ReactDOM.Client.render(root, <DummyComponentWithLayoutEffect value=1 callback />);
     });
 
     expect(callback->Mock.getMock->Mock.calls)->toEqual([|
@@ -507,7 +509,8 @@ describe("React", () => {
     };
 
     act(() => {
-      ReactDOM.render(<DummyComponentWithRefAndEffect callback />, container)
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <DummyComponentWithRefAndEffect callback />);
     });
 
     expect(myRef.contents->Option.map(item => item.current))->toEqual(
@@ -519,14 +522,12 @@ describe("React", () => {
     let container = getContainer(container);
 
     act(() => {
-      ReactDOM.render(
-        <DummyComponentThatMapsChildren>
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <DummyComponentThatMapsChildren>
           <div> 1->React.int </div>
           <div> 2->React.int </div>
           <div> 3->React.int </div>
-        </DummyComponentThatMapsChildren>,
-        container,
-      )
+        </DummyComponentThatMapsChildren>);
     });
 
     expect(
@@ -552,12 +553,11 @@ describe("React", () => {
     let container = getContainer(container);
 
     act(() => {
-      ReactDOM.render(
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root,
         <DummyContext.Provider value=10>
           <DummyContext.Consumer />
-        </DummyContext.Provider>,
-        container,
-      )
+        </DummyContext.Provider>);
     });
 
     expect(
@@ -572,13 +572,8 @@ describe("React", () => {
     let value = ref("");
 
     act(() => {
-      ReactDOM.render(
-        <input
-          name="test-input"
-          onChange={event => {value :=  event->ReactEvent.Form.target##value}}
-        />,
-        container,
-      )
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <input name="test-input" onChange={event => {value := event->ReactEvent.Form.target##value}} />);
     });
 
     switch (container->DOM.findBySelector("input[name='test-input']")) {
@@ -594,12 +589,10 @@ describe("React", () => {
     let title = Some("foo");
 
     act(() => {
-      ReactDOM.render(
-        <React.Fragment key=?title>
+      let root = ReactDOM.Client.createRoot(container);
+      ReactDOM.Client.render(root, <React.Fragment key=?title>
           <div> "Child"->React.string </div>
-        </React.Fragment>,
-        container,
-      )
+        </React.Fragment>);
     });
 
     expect(
@@ -609,7 +602,7 @@ describe("React", () => {
     )
     ->toBe(true);
   });
-  
+
   /* test("ErrorBoundary", () => {
     let container = getContainer(container);
 
