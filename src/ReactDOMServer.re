@@ -35,8 +35,8 @@ type options = {
 
 type pipeableStream = {
   /* Using empty object instead of Node.stream since Melange don't provide a binding to node's Stream (https://nodejs.org/api/stream.html) */
-  pipe: {. } => unit,
-  abort: unit => unit
+  pipe: {.} => unit,
+  abort: unit => unit,
 };
 
 [@bs.module "react-dom/server"]
@@ -61,17 +61,17 @@ let renderToPipeableStream =
   renderToPipeableStream(
     element,
     options(
-      ~bootstrapScriptContent=?(bootstrapScriptContent),
-      ~bootstrapScripts=?(bootstrapScripts),
-      ~bootstrapModules=?(bootstrapModules),
-      ~identifierPrefix=?(identifierPrefix),
-      ~namespaceURI=?(namespaceURI),
-      ~nonce=?(nonce),
-      ~onAllReady=?(onAllReady),
-      ~onError=?(onError),
-      ~onShellReady=?(onShellReady),
-      ~onShellError=?(onShellError),
-      ~progressiveChunkSize=?(progressiveChunkSize),
+      ~bootstrapScriptContent?,
+      ~bootstrapScripts?,
+      ~bootstrapModules?,
+      ~identifierPrefix?,
+      ~namespaceURI?,
+      ~nonce?,
+      ~onAllReady?,
+      ~onError?,
+      ~onShellReady?,
+      ~onShellError?,
+      ~progressiveChunkSize?,
       (),
     ),
   );
