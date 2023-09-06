@@ -796,13 +796,14 @@ let jsxMapper =
                 } ->
                     spelunkForFunExpression innerFunctionExpression
                 (* let make = React.memoCustomCompareProps(
-                    (~prop) => ...,
-                    (prevProps, nextProps) => false
-                  ) *)
+                     (~prop) => ...,
+                     (prevProps, nextProps) => false
+                   ) *)
                 | {
                  pexp_desc =
                    Pexp_apply
-                     (_wrapperExpression, [ (Nolabel, innerFunctionExpression); _ ]);
+                     ( _wrapperExpression,
+                       [ (Nolabel, innerFunctionExpression); _ ] );
                 } ->
                     spelunkForFunExpression innerFunctionExpression
                 | {
@@ -814,9 +815,9 @@ let jsxMapper =
                     raise
                       (Invalid_argument
                          "react.component calls can only be on function \
-                          definitions or component wrappers (forwardRef, \
-                          memo or memoCustomCompareProps).")
-                [@@raises Invalid_argument]
+                          definitions or component wrappers (forwardRef, memo \
+                          or memoCustomCompareProps).")
+                  [@@raises Invalid_argument]
               in
               spelunkForFunExpression expression
             in

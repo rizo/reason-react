@@ -205,7 +205,7 @@ module Upper_case_with_fragment_as_root =
 module Using_React_memo =
   struct
     external makeProps :
-      a:'a -> ?key:string -> unit -> < a: 'a   >  Js.t = ""[@@bs.obj ]
+      a:'a -> ?key:string -> unit -> < a: 'a   >  Js.t = ""[@@mel.obj ]
     let make =
       ((fun ~a ->
           ReactDOM.jsx "div"
@@ -221,7 +221,7 @@ module Using_React_memo =
 module Using_memo_custom_compare_Props =
   struct
     external makeProps :
-      a:'a -> ?key:string -> unit -> < a: 'a   >  Js.t = ""[@@bs.obj ]
+      a:'a -> ?key:string -> unit -> < a: 'a   >  Js.t = ""[@@mel.obj ]
     let make =
       React.memoCustomCompareProps
         (fun ~a ->
